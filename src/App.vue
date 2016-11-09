@@ -1,10 +1,12 @@
 <template>
   <div id="app">
     <AutographPaper
+      ref="autograph"
       :watermarkingTxt="watermarkingTxt"
     ></AutographPaper>
     <FunctionsBox
       :onSubmit="handleSubmitWatermarking"
+      :onClickPrinting="handleClickPrinting"
     ></FunctionsBox>
   </div>
 </template>
@@ -26,6 +28,9 @@ export default {
   methods: {
     handleSubmitWatermarking(txt) {
       this.watermarkingTxt = txt;
+    },
+    handleClickPrinting() {
+      this.$refs.autograph.$emit('downloadPng');
     },
   },
 };

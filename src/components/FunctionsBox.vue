@@ -1,11 +1,16 @@
 <template>
   <footer id="footer">
-    <button class="btn-add" type="button" name="button"
+    <button class="btn-icon" type="button" name="button"
       @click="handleClickAdd"
     >
       <img src="../assets/ic_add_white_48px.svg" alt="add" />
     </button>
 
+    <button class="btn-icon" type="button" name="button"
+      @click="onClickPrinting"
+    >
+      <img src="../assets/ic_local_printshop_white_48px.svg" alt="printing" />
+    </button>
 
     <div class="modal-watermarking"
       v-show="isShowModal"
@@ -26,6 +31,7 @@
 export default {
   props: [
     'onSubmit',
+    'onClickPrinting',
   ],
   data() {
     return {
@@ -59,10 +65,11 @@ export default {
   align-items: center;
 }
 
-.btn-add {
+.btn-icon {
   border: 0; outline: 0;
   background-color: transparent;
   cursor: pointer;
+  margin: 0 16px;
 }
 
 .modal-watermarking {

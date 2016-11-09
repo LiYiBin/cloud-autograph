@@ -40,6 +40,13 @@ export default {
       isDrawingMode: true,
     });
     this.canvas.freeDrawingBrush.width = 10;
+
+    this.$on('downloadPng', () => {
+      const download = document.createElement('a');
+      download.href = this.canvas.toDataURL('png');
+      download.download = 'cloud-autograph.png';
+      download.click();
+    });
   },
 };
 </script>
