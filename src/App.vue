@@ -1,28 +1,24 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <hello></hello>
+    <AutographPaper></AutographPaper>
   </div>
 </template>
 
 <script>
-import Hello from './components/Hello';
+import AutographPaper from './components/AutographPaper';
 
 export default {
   name: 'app',
   components: {
-    Hello,
+    AutographPaper,
   },
 };
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+
+body {
+  margin: 0;
 }
+
 </style>
