@@ -5,17 +5,41 @@
 </template>
 
 <script>
-import Fabric from 'fabric';
+import { fabric } from 'fabric';
 
 export default {
-  mounted() {
-    /* eslint-disable new-cap */
-    const canvas = new Fabric.fabric.Canvas('js-autograph-paper', {
+  props: [
+    'watermarkingTxt',
+  ],
+  data() {
+    return {
+      canvas: null,
       width: window.innerWidth,
       height: window.innerHeight,
+    };
+  },
+  watch: {
+    watermarkingTxt(newValue) {
+      if (newValue.length !== 0) {
+        const text = new fabric.Text(newValue, {
+          left: this.width * 0.2,
+          top: this.height * 0.2,
+          fill: '#6A6A6A',
+          opacity: 0.5,
+        });
+        this.canvas.add(text);
+      }
+
+      this.canvas.isDrawingMode = false;
+    },
+  },
+  mounted() {
+    this.canvas = new fabric.Canvas('js-autograph-paper', {
+      width: this.width,
+      height: this.height,
       isDrawingMode: true,
     });
-    canvas.freeDrawingBrush.width = 10;
+    this.canvas.freeDrawingBrush.width = 10;
   },
 };
 </script>

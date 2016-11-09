@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <AutographPaper></AutographPaper>
+    <AutographPaper
+      :watermarkingTxt="watermarkingTxt"
+    ></AutographPaper>
     <FunctionsBox
       :onSubmit="handleSubmitWatermarking"
     ></FunctionsBox>
@@ -12,14 +14,18 @@ import AutographPaper from './components/AutographPaper';
 import FunctionsBox from './components/FunctionsBox';
 
 export default {
-  name: 'app',
   components: {
     AutographPaper,
     FunctionsBox,
   },
+  data() {
+    return {
+      watermarkingTxt: '',
+    };
+  },
   methods: {
     handleSubmitWatermarking(txt) {
-      console.log(txt);
+      this.watermarkingTxt = txt;
     },
   },
 };
