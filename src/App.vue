@@ -1,12 +1,16 @@
 <template>
   <div id="app">
+    <header id="header">
+      <h2 class="header-title">簽名</h2>
+    </header>
+
     <AutographPaper ref="autograph" />
 
     <div class="modal-watermarking"
       v-show="isShowModal"
     >
       <h2 class="modal-watermarking__txt">浮水印</h2>
-      <input v-model="watermarkingTxt" class="modal-watermarking__input" type="text" name="watermarking">
+      <textarea v-model="watermarkingTxt" class="modal-watermarking__input" name="watermarking"></textarea>
       <button class="modal-watermarking__btn" type="button" name="button"
         @click="handleSubmitWatermarking"
       >
@@ -63,10 +67,32 @@ export default {
 
 body {
   margin: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 #app {
   position: relative;
+  width: 100%; height: 100%;
+  background-color: #EDECED;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#header {
+  position: fixed;
+  top: 0; right: 0; left: 0;
+  height: 50px;
+  background-color: #3748AC;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-title {
+  margin: 0;
+  color: white;
 }
 
 #footer {
@@ -110,14 +136,16 @@ body {
 }
 
 .modal-watermarking__input {
-  width: 80%; height: 40%;
-  margin: 32px auto;
-  font-size: 24px;
+  width: 80%;
+  margin: 12px auto;
+  font-size: 20px;
 }
 
 .modal-watermarking__btn {
   padding: 8px 16px;
-  background-color: white;
+  border: 0;
+  background-color: #1E8BF1;
+  color: white;
 }
 
 </style>

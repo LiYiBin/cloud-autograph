@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="box-autograph-paper">
     <canvas id="js-autograph-paper"></canvas>
   </div>
 </template>
@@ -12,10 +12,12 @@ export default {
     'watermarkingTxt',
   ],
   data() {
+    const width = Math.max(window.innerWidth, window.innerHeight) - 64;
+
     return {
       canvas: null,
-      width: window.innerWidth,
-      height: window.innerHeight,
+      width,
+      height: width * (1 / 4),
     };
   },
   mounted() {
@@ -24,7 +26,7 @@ export default {
       height: this.height,
       isDrawingMode: true,
     });
-    this.canvas.freeDrawingBrush.width = 10;
+    this.canvas.freeDrawingBrush.width = 5;
 
     this.$on('downloadAutographPng', () => {
       const download = document.createElement('a');
@@ -36,12 +38,13 @@ export default {
     this.$on('submitWatermarking', (txt) => {
       if (txt.length !== 0) {
         const text = new fabric.Text(txt, {
-          left: this.width * 0.2,
-          top: this.height * 0.2,
+          angle: -22.5,
+          textAlign: 'center',
           fill: '#6A6A6A',
           opacity: 0.5,
         });
         this.canvas.add(text);
+        text.center();
       }
 
       this.canvas.isDrawingMode = false;
@@ -53,9 +56,9 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
-#js-autograph-paper {
-  width: 100vw;
-  height: 100vh;
+.box-autograph-paper {
+  background-color: white;
+  display: inline-block;
 }
 
 </style>
