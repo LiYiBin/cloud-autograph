@@ -1,39 +1,62 @@
 <template>
   <div id="app">
-    <AutographPaper
-      ref="autograph"
-      :watermarkingTxt="watermarkingTxt"
-    ></AutographPaper>
-    <FunctionsBox
-      :onSubmit="handleSubmitWatermarking"
-      :onClickPrinting="handleClickPrinting"
-    ></FunctionsBox>
+    <AutographPaper ref="autograph" />
+
+    <div class="modal-watermarking"
+      v-show="isShowModal"
+    >
+      <h2 class="modal-watermarking__txt">浮水印</h2>
+      <input v-model="watermarkingTxt" class="modal-watermarking__input" type="text" name="watermarking">
+      <button class="modal-watermarking__btn" type="button" name="button"
+        @click="handleSubmitWatermarking"
+      >
+        新增
+      </button>
+    </div>
+
+    <footer id="footer">
+      <button class="btn-icon" type="button" name="button"
+        @click="handleClickAdd"
+      >
+        <img src="./assets/ic_add_white_48px.svg" alt="add" />
+      </button>
+
+      <button class="btn-icon" type="button" name="button"
+        @click="handleClickPrinting"
+      >
+        <img src="./assets/ic_local_printshop_white_48px.svg" alt="printing" />
+      </button>
+    </footer>
   </div>
 </template>
 
 <script>
 import AutographPaper from './components/AutographPaper';
-import FunctionsBox from './components/FunctionsBox';
 
 export default {
   components: {
     AutographPaper,
-    FunctionsBox,
   },
   data() {
     return {
       watermarkingTxt: '',
+      isShowModal: false,
     };
   },
   methods: {
-    handleSubmitWatermarking(txt) {
-      this.watermarkingTxt = txt;
+    handleClickAdd() {
+      this.isShowModal = !this.isShowModal;
+    },
+    handleSubmitWatermarking() {
+      this.isShowModal = false;
+      this.$refs.autograph.$emit('submitWatermarking', this.watermarkingTxt);
     },
     handleClickPrinting() {
-      this.$refs.autograph.$emit('downloadPng');
+      this.$refs.autograph.$emit('downloadAutographPng');
     },
   },
 };
+
 </script>
 
 <style>
@@ -44,6 +67,57 @@ body {
 
 #app {
   position: relative;
+}
+
+#footer {
+  position: fixed;
+  left: 0; bottom: 0; right: 0;
+  height: 50px;
+  padding: 4px;
+  background-color: black;
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-icon {
+  border: 0; outline: 0;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0 16px;
+  padding: 0;
+}
+
+.modal-watermarking {
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column wrap;
+  padding: 32px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+  background-color: #F9F9F9;
+}
+
+.modal-watermarking__txt {
+  margin: 0;
+}
+
+.modal-watermarking__input {
+  width: 80%; height: 40%;
+  margin: 32px auto;
+  font-size: 24px;
+}
+
+.modal-watermarking__btn {
+  padding: 8px 16px;
+  background-color: white;
 }
 
 </style>

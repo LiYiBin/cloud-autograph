@@ -18,10 +18,24 @@ export default {
       height: window.innerHeight,
     };
   },
-  watch: {
-    watermarkingTxt(newValue) {
-      if (newValue.length !== 0) {
-        const text = new fabric.Text(newValue, {
+  mounted() {
+    this.canvas = new fabric.Canvas('js-autograph-paper', {
+      width: this.width,
+      height: this.height,
+      isDrawingMode: true,
+    });
+    this.canvas.freeDrawingBrush.width = 10;
+
+    this.$on('downloadAutographPng', () => {
+      const download = document.createElement('a');
+      download.href = this.canvas.toDataURL('png');
+      download.download = 'cloud-autograph.png';
+      download.click();
+    });
+
+    this.$on('submitWatermarking', (txt) => {
+      if (txt.length !== 0) {
+        const text = new fabric.Text(txt, {
           left: this.width * 0.2,
           top: this.height * 0.2,
           fill: '#6A6A6A',
@@ -31,21 +45,6 @@ export default {
       }
 
       this.canvas.isDrawingMode = false;
-    },
-  },
-  mounted() {
-    this.canvas = new fabric.Canvas('js-autograph-paper', {
-      width: this.width,
-      height: this.height,
-      isDrawingMode: true,
-    });
-    this.canvas.freeDrawingBrush.width = 10;
-
-    this.$on('downloadPng', () => {
-      const download = document.createElement('a');
-      download.href = this.canvas.toDataURL('png');
-      download.download = 'cloud-autograph.png';
-      download.click();
     });
   },
 };
