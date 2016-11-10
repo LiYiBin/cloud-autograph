@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <div class="overlay">
+      <img src="./assets/ic_3d_rotation_black_48px.svg" alt="hint-rotation" />
+    </div>
+
     <header id="header">
       <h2 class="header-title">簽名</h2>
     </header>
@@ -43,6 +47,7 @@ export default {
   },
   data() {
     return {
+      isShowRotation: false,
       watermarkingTxt: '',
       isShowModal: false,
     };
@@ -80,6 +85,26 @@ body {
   align-items: center;
 }
 
+.overlay {
+  position: fixed;
+  top: 0; right: 0; bottom: 0; left: 0;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+@media (orientation: landscape) {
+  .overlay {
+    display: none;
+  }
+}
+
+.overlay img {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25%;
+}
+
 #header {
   position: fixed;
   top: 0; right: 0; left: 0;
@@ -101,7 +126,6 @@ body {
   height: 50px;
   padding: 4px;
   background-color: black;
-  z-index: 999;
   display: flex;
   justify-content: center;
   align-items: center;
