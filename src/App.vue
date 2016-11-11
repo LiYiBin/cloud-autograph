@@ -73,13 +73,12 @@ export default {
 body {
   margin: 0;
   width: 100vw;
-  height: 100vh;
+  background-color: #EDECED;
 }
 
 #app {
   position: relative;
   width: 100%; height: 100%;
-  background-color: #EDECED;
   display: flex;
   justify-content: center;
   align-items: center;

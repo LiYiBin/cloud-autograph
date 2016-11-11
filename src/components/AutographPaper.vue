@@ -59,6 +59,7 @@ export default {
 .box-autograph-paper {
   background-color: white;
   display: inline-block;
+  margin-top: calc(75px + 32px);
 }
 
 </style>
